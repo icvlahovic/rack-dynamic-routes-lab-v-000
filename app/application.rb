@@ -8,9 +8,9 @@ class Application
     req = Rack::Request.new(env)
     if req.path.match(/items/)
       item_name = req.path.split("/items/").last
-      if @@items.find { |item| item.name == item_name }
+      found_item = if @@items.find { |item| item.name == item_name }
         binding.pry
-        resp.write item.price
+        resp.write found_item.price
       else
         resp.write "Item not found"
         resp.status = 400
